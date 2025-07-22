@@ -151,7 +151,7 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
   }
 }
 
-export async function getAboutContent(): Promise<string | null> {
+export async function getAboutContent(): Promise<any> {
   try {
     const filePath = path.join(contentDirectory, 'about.mdx')
 
@@ -169,14 +169,14 @@ export async function getAboutContent(): Promise<string | null> {
       },
     })
 
-    return JSON.stringify(mdxSource)
+    return mdxSource
   } catch (error) {
     console.error('Error loading about content:', error)
     return null
   }
 }
 
-export async function getResumeContent(): Promise<string | null> {
+export async function getResumeContent(): Promise<any> {
   try {
     const filePath = path.join(contentDirectory, 'resume.mdx')
 
@@ -194,7 +194,7 @@ export async function getResumeContent(): Promise<string | null> {
       },
     })
 
-    return JSON.stringify(mdxSource)
+    return mdxSource
   } catch (error) {
     console.error('Error loading resume content:', error)
     return null

@@ -66,4 +66,39 @@
   body {
     @apply bg-background text-foreground;
   }
-} 
+}
+
+/* Mermaid 图表样式 */
+.mermaid-diagram {
+  background: transparent;
+}
+
+.mermaid-diagram svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* 深色模式下的 Mermaid 样式 */
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram svg {
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+  .mermaid-diagram svg text {
+    fill: var(--foreground) !important;
+  }
+}
+
+/* Mermaid 在 prose 容器中的样式调整 */
+.prose .mermaid-diagram {
+  margin: 2rem 0;
+}
+
+.prose .mermaid-diagram svg {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 1rem;
+  background: var(--background);
+}

@@ -1,6 +1,10 @@
-import { getAboutContent } from '@/lib/mdx'
+import { Suspense } from 'react'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import type { Metadata } from 'next'
+import fs from 'fs'
+import path from 'path'
+import matter from 'gray-matter'
+import { CodeBlock } from '@/components/CodeBlock'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,10 +19,46 @@ export const metadata: Metadata = {
   description: 'AI-First Front-End Developer，专注知识库 / DevEx',
 }
 
-export default async function AboutPage() {
-  const aboutContent = await getAboutContent()
+// MDX 自定义组件
+const components = {
+  code: ({ className, children, ...props }: any) => {
+    return (
+      <CodeBlock className={className} {...props}>
+        {children}
+      </CodeBlock>
+    )
+  },
+}
 
-  if (!aboutContent) {
+export default async function AboutPage() {
+  try {
+    const filePath = path.join(process.cwd(), 'content', 'about.mdx')
+    const fileContents = fs.readFileSync(filePath, 'utf8')
+    const { content } = matter(fileContents)
+
+    return (
+      <div className="container mx-auto max-w-4xl px-4 py-8">
+        {/* Breadcrumb */}
+        <Breadcrumb className="mb-8">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">首页</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>关于我</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        <article className="prose prose-lg prose-neutral max-w-none dark:prose-invert">
+          <Suspense fallback={<div>加载中...</div>}>
+            <MDXRemote source={content} components={components} />
+          </Suspense>
+        </article>
+      </div>
+    )
+  } catch (error) {
     return (
       <div className="container mx-auto max-w-4xl px-4 py-16">
         <div className="text-center text-muted-foreground">
@@ -27,27 +67,4 @@ export default async function AboutPage() {
       </div>
     )
   }
-
-  const mdxSource = JSON.parse(aboutContent)
-
-  return (
-    <div className="container mx-auto max-w-4xl px-4 py-8">
-      {/* Breadcrumb */}
-      <Breadcrumb className="mb-8">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">首页</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>关于我</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
-
-      <article className="prose prose-lg prose-neutral max-w-none dark:prose-invert">
-        <MDXRemote {...mdxSource} />
-      </article>
-    </div>
-  )
 }
