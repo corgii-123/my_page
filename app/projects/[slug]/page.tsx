@@ -6,12 +6,13 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { CodeBlock } from '@/components/CodeBlock'
+import { MermaidDiagram } from '@/components/MermaidDiagram'
 import {
   Breadcrumb,
-  BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
@@ -34,12 +35,16 @@ interface ProjectMeta {
 
 // MDX 自定义组件
 const components = {
-  code: ({ className, children, ...props }: any) => {
-    return (
-      <CodeBlock className={className} {...props}>
-        {children}
-      </CodeBlock>
-    )
+  code: (props: { className?: string; children?: React.ReactNode }) => {
+    const language = props.className?.replace('language-', '') || ''
+    const codeContent = String(props.children || '')
+
+    // 如果是 mermaid 代码块，使用 MermaidDiagram 组件
+    if (language === 'mermaid') {
+      return <MermaidDiagram chart={codeContent} />
+    }
+
+    return <CodeBlock {...props}>{codeContent}</CodeBlock>
   },
 }
 
@@ -111,6 +116,20 @@ export default async function ProjectPage({ params }: Props) {
         </Breadcrumb>
 
         <article>
+          {/* 封面图片 */}
+          {project.cover && (
+            <div className="relative mb-8 h-64 w-full overflow-hidden rounded-lg md:h-96">
+              <Image
+                src={project.cover}
+                alt={project.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                priority
+              />
+            </div>
+          )}
+
           <header className="mb-8">
             <div className="mb-4 flex items-center gap-x-4 text-sm text-muted-foreground">
               <time>{project.date}</time>

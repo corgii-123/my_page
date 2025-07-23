@@ -1,8 +1,15 @@
 import { getAllProjects } from '@/lib/mdx'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import Image from 'next/image'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 
 export const metadata: Metadata = {
   title: '项目作品',
@@ -14,55 +21,71 @@ export default async function ProjectsPage() {
 
   return (
     <div className="container mx-auto max-w-6xl px-4 py-16">
-      <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
+      <div className="mb-12 text-center">
+        <h1 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
           项目作品
         </h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
           我的项目作品集，展示 AI + 前端工程的实践案例
         </p>
       </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
         {projects.length === 0 ? (
-          <div className="col-span-full text-center text-muted-foreground py-12">
+          <div className="col-span-full py-12 text-center text-muted-foreground">
             暂无项目内容。请在 content/projects 目录下添加 .mdx 文件。
           </div>
         ) : (
           projects.map((project) => (
-            <Card key={project.slug} className="shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
+            <Card
+              key={project.slug}
+              className="group overflow-hidden shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            >
               <Link href={`/projects/${project.slug}`} className="block h-full">
+                {/* 封面图片 */}
+                {project.cover && (
+                  <div className="relative h-48 w-full overflow-hidden">
+                    <Image
+                      src={project.cover}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  </div>
+                )}
+
                 <CardHeader>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+                  <div className="mb-2 flex items-center gap-2 text-xs text-muted-foreground">
                     <time>{project.date}</time>
                   </div>
-                  <CardTitle className="group-hover:text-primary transition-colors">
+                  <CardTitle className="transition-colors group-hover:text-primary">
                     {project.title}
                   </CardTitle>
                   <CardDescription className="line-clamp-2">
                     {project.summary}
                   </CardDescription>
                 </CardHeader>
-                
+
                 <CardContent>
                   {project.bullets && (
-                    <ul className="text-sm text-muted-foreground space-y-1">
+                    <ul className="space-y-1 text-sm text-muted-foreground">
                       {project.bullets.slice(0, 2).map((bullet, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <span className="w-1 h-1 rounded-full bg-muted-foreground mt-2 flex-shrink-0" />
+                          <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-muted-foreground" />
                           <span className="line-clamp-1">{bullet}</span>
                         </li>
                       ))}
                     </ul>
                   )}
                 </CardContent>
-                
+
                 <CardFooter>
                   <div className="flex flex-wrap gap-1">
                     {project.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-slate-100 dark:bg-slate-700 text-xs tracking-wide px-2.5 py-0.5 text-muted-foreground"
+                        className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs tracking-wide text-muted-foreground dark:bg-slate-700"
                       >
                         {tag}
                       </span>
@@ -81,4 +104,4 @@ export default async function ProjectsPage() {
       </div>
     </div>
   )
-} 
+}

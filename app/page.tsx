@@ -16,7 +16,7 @@ export default function HomePage() {
           </p>
           <div className="prose prose-neutral mx-auto mt-4 dark:prose-invert">
             <p className="mx-auto max-w-2xl text-base leading-7 text-muted-foreground">
-              拥有 3 年教育 SaaS + AI 平台前端经验。擅长 React / Vue
+              拥有 3 年教育 toC + AI 平台前端经验。擅长 React / Vue
               双栈、Next.js 全栈与 Milvus 向量知识库集成。
               热衷用工具链提升团队协作效率（Cursor、Dify、n8n）。
             </p>
