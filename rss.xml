@@ -3,18 +3,18 @@
   <channel>
     <title>石杰洋的技术博客</title>
     <description>AI-First Front-End Developer 的技术分享和项目展示</description>
-    <link>https://shijieyang.dev</link>
+    <link>https://corgii-123.github.io/my_page</link>
     <language>zh-cn</language>
     <managingEditor>corgii123mail@gmail.com (石杰洋)</managingEditor>
     <webMaster>corgii123mail@gmail.com (石杰洋)</webMaster>
-    <lastBuildDate>Thu, 24 Jul 2025 04:08:14 GMT</lastBuildDate>
-    <atom:link href="https://shijieyang.dev/rss.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Thu, 24 Jul 2025 04:18:08 GMT</lastBuildDate>
+    <atom:link href="https://corgii-123.github.io/my_page/rss.xml" rel="self" type="application/rss+xml"/>
     
     <item>
       <title><![CDATA[AI 代码 Code Review 平台]]></title>
       <description><![CDATA[GitLab Webhook + LLM 自动生成 MR 评审意见]]></description>
-      <link>https://shijieyang.dev/projects/ai-code-review</link>
-      <guid>https://shijieyang.dev/projects/ai-code-review</guid>
+      <link>https://corgii-123.github.io/my_page/projects/ai-code-review</link>
+      <guid>https://corgii-123.github.io/my_page/projects/ai-code-review</guid>
       <pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate>
       <category>项目</category>
       <category><![CDATA[GitLab Hook]]></category><category><![CDATA[LangChain]]></category><category><![CDATA[Milvus]]></category><category><![CDATA[Nest.js]]></category>
@@ -22,8 +22,8 @@
     <item>
       <title><![CDATA[线上问题全自动解决工作流 (Dify Workflow)]]></title>
       <description><![CDATA[工单智能分发 + API 调度，全链路闭环]]></description>
-      <link>https://shijieyang.dev/projects/dify-issue-solver</link>
-      <guid>https://shijieyang.dev/projects/dify-issue-solver</guid>
+      <link>https://corgii-123.github.io/my_page/projects/dify-issue-solver</link>
+      <guid>https://corgii-123.github.io/my_page/projects/dify-issue-solver</guid>
       <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
       <category>项目</category>
       <category><![CDATA[Dify]]></category><category><![CDATA[n8n]]></category><category><![CDATA[OpenAI]]></category><category><![CDATA[Workflow]]></category>
@@ -31,8 +31,8 @@
     <item>
       <title><![CDATA[基于向量相似度的团队代码审查系统]]></title>
       <description><![CDATA[基于向量相似度匹配团队历史代码，结合 AI 技术实现智能代码审查，提升代码质量和团队协作效率]]></description>
-      <link>https://shijieyang.dev/blog/code-review</link>
-      <guid>https://shijieyang.dev/blog/code-review</guid>
+      <link>https://corgii-123.github.io/my_page/blog/code-review</link>
+      <guid>https://corgii-123.github.io/my_page/blog/code-review</guid>
       <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
       <category>博客</category>
       <category><![CDATA[代码审查]]></category><category><![CDATA[向量数据库]]></category><category><![CDATA[LangChain]]></category><category><![CDATA[ChromaDB]]></category><category><![CDATA[AI]]></category>
@@ -40,8 +40,8 @@
     <item>
       <title><![CDATA[欢迎来到我的技术博客]]></title>
       <description><![CDATA[这是我的第一篇博客文章，分享关于 AI + 前端工程的思考和实践经验。]]></description>
-      <link>https://shijieyang.dev/blog/first-post</link>
-      <guid>https://shijieyang.dev/blog/first-post</guid>
+      <link>https://corgii-123.github.io/my_page/blog/first-post</link>
+      <guid>https://corgii-123.github.io/my_page/blog/first-post</guid>
       <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
       <category>博客</category>
       <category><![CDATA[技术分享]]></category><category><![CDATA[前端开发]]></category><category><![CDATA[AI]]></category>
@@ -49,8 +49,8 @@
     <item>
       <title><![CDATA[Solana Meme 代币分析 Bot]]></title>
       <description><![CDATA[Telegram 机器人 + Solana 链上数据，实时监控 Meme 代币持有者和价格]]></description>
-      <link>https://shijieyang.dev/projects/solana-meme-bot</link>
-      <guid>https://shijieyang.dev/projects/solana-meme-bot</guid>
+      <link>https://corgii-123.github.io/my_page/projects/solana-meme-bot</link>
+      <guid>https://corgii-123.github.io/my_page/projects/solana-meme-bot</guid>
       <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
       <category>项目</category>
       <category><![CDATA[Solana]]></category><category><![CDATA[Telegram Bot]]></category><category><![CDATA[Web3]]></category><category><![CDATA[SPL Token]]></category>
@@ -58,8 +58,8 @@
     <item>
       <title><![CDATA[Overseas Portal – 海外学者智能推荐]]></title>
       <description><![CDATA[自研爬虫抓取 5 万+ 导师信息，LangChain + GPT-4 实现多条件匹配]]></description>
-      <link>https://shijieyang.dev/projects/overseas-portal</link>
-      <guid>https://shijieyang.dev/projects/overseas-portal</guid>
+      <link>https://corgii-123.github.io/my_page/projects/overseas-portal</link>
+      <guid>https://corgii-123.github.io/my_page/projects/overseas-portal</guid>
       <pubDate>Tue, 01 Oct 2024 00:00:00 GMT</pubDate>
       <category>项目</category>
       <category><![CDATA[Vue 3]]></category><category><![CDATA[Vite]]></category><category><![CDATA[LangChain]]></category><category><![CDATA[Puppeteer]]></category><category><![CDATA[MySQL]]></category>
@@ -67,8 +67,8 @@
     <item>
       <title><![CDATA[乐读课堂学生端]]></title>
       <description><![CDATA[Vue 2.7 + Rspack 重构、播放器解耦、Lottie 动画首帧 TTI ↓90%]]></description>
-      <link>https://shijieyang.dev/projects/ledu-u-class</link>
-      <guid>https://shijieyang.dev/projects/ledu-u-class</guid>
+      <link>https://corgii-123.github.io/my_page/projects/ledu-u-class</link>
+      <guid>https://corgii-123.github.io/my_page/projects/ledu-u-class</guid>
       <pubDate>Sat, 01 Apr 2023 00:00:00 GMT</pubDate>
       <category>项目</category>
       <category><![CDATA[Vue 2.7]]></category><category><![CDATA[Rspack]]></category><category><![CDATA[Education]]></category><category><![CDATA[Lottie]]></category>
