@@ -29,8 +29,10 @@ git push origin main
 2. 点击 **Settings** 标签
 3. 在左侧菜单中找到 **Pages**
 4. 在 **Source** 部分，选择 **Deploy from a branch**
-5. 选择 **gh-pages** 分支和 **/ (root)** 文件夹
+5. 选择 **gh-pages** 分支和 **/ (root)** 文件夹（注意：gh-pages 分支会在首次部署后自动创建）
 6. 点击 **Save**
+
+**注意**：如果您还没有看到 `gh-pages` 分支选项，请先完成步骤 3 和 4，然后再回来设置 Pages。
 
 ### 3. 配置 GitHub Actions 权限
 
@@ -106,6 +108,25 @@ const siteUrl = 'https://username.github.io/your-repo-name'
 4. **自定义域名**：如果需要自定义域名，可以在仓库根目录添加 `CNAME` 文件
 
 ## 故障排除
+
+### 常见 GitHub Actions 错误
+
+**错误：Unable to locate executable file: pnpm**
+
+- 原因：pnpm 需要在 Node.js 设置之前安装
+- 解决：已在工作流中调整了安装顺序
+
+**错误：gh-pages 分支不存在**
+
+- 原因：首次部署时 gh-pages 分支还未创建
+- 解决：等待 Actions 完成后，gh-pages 分支会自动创建
+
+**错误：权限被拒绝**
+
+- 原因：GitHub Actions 没有写入权限
+- 解决：按照步骤 3 设置正确的权限
+
+### 其他问题
 
 - 如果部署失败，检查 Actions 标签中的错误日志
 - 确保所有的动态路由都有对应的 `generateStaticParams()` 函数
