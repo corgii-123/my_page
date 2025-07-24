@@ -5,9 +5,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // GitHub Pages 子路径配置 - 如果您的仓库名不是 username.github.io，请取消注释并替换仓库名
-  // basePath: '/your-repo-name',
-  // assetPrefix: '/your-repo-name',
+  // GitHub Pages 子路径配置
+  basePath: '/my_page',
+  assetPrefix: '/my_page',
   experimental: {
     mdxRs: true,
   },

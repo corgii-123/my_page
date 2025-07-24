@@ -54,7 +54,7 @@ function generateRSS() {
   const blogPosts = getAllBlogPosts()
   const projects = getAllProjects()
 
-  const siteUrl = 'https://shijieyang.dev'
+  const siteUrl = 'https://corgii-123.github.io/my_page'
   const feedUrl = `${siteUrl}/rss.xml`
 
   // 合并博客和项目，按日期排序
