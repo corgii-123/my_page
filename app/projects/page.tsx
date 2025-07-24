@@ -2,6 +2,7 @@ import { getAllProjects } from '@/lib/mdx'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { getImagePath } from '@/lib/utils'
 import {
   Card,
   CardContent,
@@ -46,7 +47,7 @@ export default async function ProjectsPage() {
                 {project.cover && (
                   <div className="relative h-48 w-full overflow-hidden">
                     <Image
-                      src={project.cover}
+                      src={getImagePath(project.cover)}
                       alt={project.title}
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-105"

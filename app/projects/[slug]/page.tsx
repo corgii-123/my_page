@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { CodeBlock } from '@/components/CodeBlock'
 import { MermaidDiagram } from '@/components/MermaidDiagram'
+import { getImagePath } from '@/lib/utils'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -120,7 +121,7 @@ export default async function ProjectPage({ params }: Props) {
           {project.cover && (
             <div className="relative mb-8 h-64 w-full overflow-hidden rounded-lg md:h-96">
               <Image
-                src={project.cover}
+                src={getImagePath(project.cover)}
                 alt={project.title}
                 fill
                 className="object-cover"
