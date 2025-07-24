@@ -3,7 +3,7 @@
   "outputDirectory": ".next",
   "framework": "nextjs",
   "installCommand": "pnpm install",
-  "regions": ["hkg1", "nrt1"],
+  "regions": ["hnd1", "kix1", "sin1"],
   "functions": {
     "app/api/**": {
       "maxDuration": 10
