@@ -1,0 +1,25 @@
+# 资源文件夹
+
+此文件夹用于存放项目相关的静态资源：
+
+## 文件命名规则
+
+根据 site-spec.md 中的资产指南：
+
+- **截图**: `*-cover.png` / `*-flow.png`
+- **流程图**: `*-diagram.svg`
+- **架构图**: `*-arch-diagram.svg`
+- **序列图**: `*-sequence.png`
+
+## 当前需要的资源
+
+- ledu-cover.png - 乐读优课项目封面
+- kb-cover.png - 知识库平台项目封面
+- cr-cover.png - AI代码审查项目封面
+- solver-cover.png - Dify工作流项目封面
+- overseas-cover.png - 海外学者推荐项目封面
+
+## 隐私策略
+
+所有图片只展示 UI 或高层次流程，代码仓库地址以 `private repo` 字样替换。
+如需演示，可准备录屏存放在私有 Gist。 
