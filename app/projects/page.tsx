@@ -73,7 +73,9 @@ export default async function ProjectsPage() {
                   <div className="text-gradient text-2xl font-bold">
                     {projects.length}
                   </div>
-                  <div className="text-sm text-muted-foreground">个项目</div>
+                  <div className="text-sm text-muted-foreground">
+                    个核心项目
+                  </div>
                 </div>
                 <div className="h-8 w-px bg-border"></div>
                 <div className="text-center">
