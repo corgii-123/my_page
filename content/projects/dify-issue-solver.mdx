@@ -22,6 +22,7 @@ bullets:
 - **自动化**: RAG + MCP Server 工具调用
 - **AI 模型**: OpenAI GPT-4 + 业务微调模型
 - **消息通信**: 企业 IM 集成（钉钉/飞书/微信）
+- **日志系统**: 阿里云 SLS + 前端埋点监控
 - **API 集成**: 内部运维 API + 监控系统
 
 ### 系统架构
@@ -34,20 +35,27 @@ graph TB
     C --> E[业务问题]
     C --> F[权限问题]
 
-    D --> G[调用运维 API]
-    E --> H[查询业务文档]
-    F --> I[权限管理系统]
+    D --> G[阿里云 SLS 日志查询]
+    D --> H[调用运维 API]
+    E --> I[前端埋点数据分析]
+    E --> J[查询业务文档]
+    F --> K[权限管理系统]
 
-    G --> J[自动修复]
-    H --> K[解决方案生成]
-    I --> L[权限调整]
+    G --> L[日志分析结果]
+    H --> M[自动修复]
+    I --> N[用户行为分析]
+    J --> O[解决方案生成]
+    K --> P[权限调整]
 
-    J --> M[结果反馈]
-    K --> M
-    L --> M
+    L --> Q[智能诊断]
+    M --> Q
+    N --> Q
+    O --> Q
+    P --> Q
 
-    M --> N[问题闭环]
-    M --> O[质量评估]
+    Q --> R[结果反馈]
+    R --> S[问题闭环]
+    R --> T[质量评估]
 ```
 
 ## 核心功能
@@ -60,6 +68,20 @@ graph TB
 - **业务类**: 数据查询、流程问题、功能异常
 - **权限类**: 账号管理、权限申请、访问控制
 
+### 📊 数据源集成
+
+#### 阿里云 SLS 日志系统
+
+- **应用日志**: 服务异常、性能瓶颈、错误堆栈
+- **访问日志**: API 调用、响应时间、状态码分析
+- **系统日志**: 资源使用、服务状态、配置变更
+
+#### 前端埋点监控
+
+- **用户行为**: 页面访问、点击事件、操作路径
+- **性能监控**: 页面加载时间、资源加载失败、接口响应
+- **错误追踪**: JS 错误、接口异常、用户操作异常
+
 ### 🔧 自动化解决方案
 
 ```python
@@ -69,19 +91,76 @@ class IssueResolver:
         # 1. 问题理解和分类
         category = self.classify_issue(issue_description)
 
-        # 2. 解决方案匹配
+        # 2. 数据收集和分析
+        context = self.gather_context(issue_description, category)
+
+        # 3. 解决方案匹配
         if category == "ops":
-            return self.handle_ops_issue(issue_description)
+            return self.handle_ops_issue(issue_description, context)
         elif category == "business":
-            return self.handle_business_issue(issue_description)
+            return self.handle_business_issue(issue_description, context)
         elif category == "permission":
-            return self.handle_permission_issue(issue_description)
+            return self.handle_permission_issue(issue_description, context)
 
-    def handle_ops_issue(self, description):
-        # 解析具体操作需求
+    def gather_context(self, description, category):
+        context = {}
+
+        if category == "ops":
+            # 查询相关服务日志
+            context['logs'] = self.query_aliyun_sls(description)
+            # 获取系统监控数据
+            context['metrics'] = self.get_system_metrics(description)
+
+        elif category == "business":
+            # 查询前端埋点数据
+            context['user_behavior'] = self.query_frontend_events(description)
+            # 分析用户操作路径
+            context['user_journey'] = self.analyze_user_path(description)
+
+        return context
+
+    def query_aliyun_sls(self, description):
+        """查询阿里云 SLS 日志"""
+        # 提取关键信息：服务名、时间范围、错误类型
+        service_name = self.extract_service_name(description)
+        time_range = self.extract_time_range(description)
+
+        # 构建 SLS 查询语句
+        query = f"""
+        * | where service = '{service_name}'
+            and __time__ >= '{time_range.start}'
+            and __time__ <= '{time_range.end}'
+            and level in ('ERROR', 'WARN')
+        """
+
+        return self.sls_client.search_logs(query)
+
+    def query_frontend_events(self, description):
+        """查询前端埋点数据"""
+        # 提取用户ID、页面、操作类型
+        user_id = self.extract_user_id(description)
+        page = self.extract_page_info(description)
+
+        # 查询用户行为事件
+        events = self.analytics_client.query_events(
+            user_id=user_id,
+            page=page,
+            event_types=['click', 'error', 'api_call']
+        )
+
+        return events
+
+    def handle_ops_issue(self, description, context):
+        # 基于日志分析结果进行处理
+        logs = context.get('logs', [])
+
+        if self.detect_memory_leak(logs):
+            return self.restart_service_with_memory_optimization()
+        elif self.detect_database_connection_issue(logs):
+            return self.reset_database_connections()
+
+        # 默认处理逻辑
         action = self.extract_action(description)
-
-        # 调用对应的运维 API
         if action == "restart_service":
             result = self.ops_api.restart_service(service_name)
         elif action == "scale_resource":
@@ -92,10 +171,11 @@ class IssueResolver:
 
 ### 🚀 API 编排系统
 
-- **服务重启**: 自动识别服务名称并执行重启
-- **资源扩容**: 根据负载情况自动调整资源配置
-- **数据查询**: 连接多个数据源进行查询和分析
+- **服务重启**: 基于日志分析自动识别服务名称并执行重启
+- **资源扩容**: 结合监控数据和负载情况自动调整资源配置
+- **数据查询**: 整合阿里云 SLS、埋点数据等多个数据源进行查询和分析
 - **权限管理**: 自动处理常见的权限申请和分配
+- **故障诊断**: 通过日志模式识别和前端错误追踪进行智能诊断
 
 ### 📊 实时监控与反馈
 
@@ -146,24 +226,56 @@ class IssueResolver:
 **处理流程**:
 
 1. 识别为运维问题
-2. 检查服务状态和日志
-3. 自动执行服务重启
-4. 验证服务恢复正常
-5. 通知相关人员
+2. 查询阿里云 SLS 中 user-service 近 30 分钟的错误日志
+3. 分析发现大量 "OutOfMemoryError" 和数据库连接超时
+4. 基于日志模式识别为内存泄漏问题
+5. 自动执行服务重启并调整 JVM 参数
+6. 验证服务恢复正常，响应时间降至正常水平
+7. 通知相关人员并生成问题报告
 
-**结果**: 3 分钟内完成处理，服务恢复正常
+**日志分析示例**:
 
-### 案例 2：数据查询自动化
+```
+2025-04-01 14:32:15 ERROR [user-service] OutOfMemoryError: Java heap space
+2025-04-01 14:32:18 ERROR [user-service] Connection timeout to database
+2025-04-01 14:32:25 WARN  [user-service] High GC frequency detected
+```
 
-**问题**: "查询用户 ID 12345 的课堂互动状态"
+**结果**: 3 分钟内完成处理，服务恢复正常，并识别出根本原因
+
+### 案例 2：前端异常诊断
+
+**问题**: "用户反馈提交作业后页面卡死，作业状态显示异常"
 **处理流程**:
 
-1. 识别为业务查询
-2. 调用互动查询 API
-3. 格式化查询结果
-4. 返回用户友好的答案
+1. 识别为业务问题
+2. 查询前端埋点数据，定位用户操作路径
+3. 分析发现用户在 "作业提交" 按钮点击后，接口调用失败
+4. 查询阿里云 SLS 中对应 API 的错误日志
+5. 发现数据库写入超时导致的 500 错误
+6. 自动触发数据库连接池重置
+7. 生成用户操作重试建议
 
-**结果**: 秒级响应，准确返回查询结果
+**前端埋点数据**:
+
+```json
+{
+  "user_id": "12345",
+  "page": "/homework/submit",
+  "events": [
+    { "type": "click", "target": "#submit-btn", "timestamp": "14:30:15" },
+    {
+      "type": "api_call",
+      "url": "/api/homework",
+      "status": 500,
+      "timestamp": "14:30:16"
+    },
+    { "type": "error", "message": "Request timeout", "timestamp": "14:30:20" }
+  ]
+}
+```
+
+**结果**: 2 分钟内定位问题并自动修复，用户体验显著改善
 
 ### 案例 3：权限批量处理
 
