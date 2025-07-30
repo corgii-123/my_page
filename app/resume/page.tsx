@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { CodeBlock } from '@/components/CodeBlock'
-import { PdfDownload } from '@/components/PdfDownload'
+import { ResumeDownload } from '@/components/ResumeDownload'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -77,10 +77,7 @@ export default async function ResumePage() {
 
             {/* 操作按钮组 */}
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <PdfDownload
-                targetId="resume-content"
-                fileName="石杰洋-个人简历.pdf"
-              >
+              <ResumeDownload className="w-full sm:w-auto">
                 <svg
                   className="mr-2 h-4 w-4"
                   fill="none"
@@ -95,7 +92,7 @@ export default async function ResumePage() {
                   />
                 </svg>
                 下载 PDF 版本
-              </PdfDownload>
+              </ResumeDownload>
 
               <Button
                 variant="outline"

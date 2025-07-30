@@ -72,7 +72,7 @@ export default function HomePage() {
                     </span>{' '}
                     与
                     <span className="font-semibold text-emerald-600 dark:text-emerald-400">
-                      Milvus 向量知识库
+                      Rag 向量知识库
                     </span>{' '}
                     集成。
                     <br />
